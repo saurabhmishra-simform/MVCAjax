@@ -1,0 +1,105 @@
+﻿@model IEnumerable<AjaxDemo.Models.Product>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ProductId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
+            </td>
+        </tr>
+    }
+    @{
+        if (Convert.ToInt32(Session["data"]) > Model.Count())
+        {
+        <tr>
+            <td align="left">
+                @Ajax.ActionLink("Prev", "LoadPrev", "Product",
+                    new AjaxOptions()
+                    {
+                        HttpMethod = "POST",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "DivUpdate",
+                        LoadingElementId = "loader",
+                    },
+                    new { @class = "btn btn-info" }
+                )
+            </td>
+            <td colspan="5" align="right">
+                @Ajax.ActionLink("Next", "LoadMore", "Product",
+                    new AjaxOptions()
+                    {
+                        HttpMethod = "POST",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "DivUpdate",
+                        LoadingElementId = "loader",
+                    },
+                    new { @class = "btn btn-info disabled" }
+                )
+            </td>
+        </tr>
+            
+        }
+        else
+        {
+            <tr>
+                <td align="left">
+                    @Ajax.ActionLink("Prev", "LoadPrev", "Product",
+                        new AjaxOptions()
+                        {
+                            HttpMethod = "POST",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "DivUpdate",
+                            LoadingElementId = "loader",
+                        },
+                        new { @class = "btn btn-info disabled" }
+                    )
+                </td>
+                <td colspan="5" align="right">
+                    @Ajax.ActionLink("Next", "LoadMore", "Product",
+                        new AjaxOptions()
+                        {
+                            HttpMethod = "POST",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "DivUpdate",
+                            LoadingElementId = "loader",
+                        },
+                        new { @class = "btn btn-info" }
+                    )
+                </td>
+            </tr>
+        }
+    }
+
+</table>

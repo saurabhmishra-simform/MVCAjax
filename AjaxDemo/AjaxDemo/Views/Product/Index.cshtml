@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<div id="loader" style="display:none">
+    <img src="~/Images/Loading.gif" height="100" width="100" />
+</div>
+
+@Ajax.ActionLink("All Products", "AllProducts", "Product",
+    new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "DivUpdate",
+        LoadingElementId = "loader"
+    }
+)
+
+<span style="color:red;"> -- </span>
+
+@Ajax.ActionLink("Top 3 Product", "Top3Product", "Product",
+    new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "DivUpdate",
+        LoadingElementId = "loader"
+    }
+)
+
+<span style="color:red;"> -- </span>
+
+
+@Ajax.ActionLink("Buttom 3 Product", "Buttom3Product", "Product",
+    new AjaxOptions()
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "DivUpdate",
+        LoadingElementId = "loader"
+    }
+)
+
+<div id="DivUpdate">
+
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
